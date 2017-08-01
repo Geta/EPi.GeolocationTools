@@ -30,16 +30,6 @@ namespace Geta.Epi.GeolocationRedirect
             _languageBranchRepository = languageBranchRepository;
         }
 
-        public LanguageBranch GetLanguageBranch(ActionExecutingContext filterContext)
-        {
-            return GetLanguageBranch(filterContext.RequestContext);
-        }
-
-        public LanguageBranch GetLanguageBranch(HttpContext context)
-        {
-           return GetLanguageBranch(context.GetRequestContext());
-        }
-
         public LanguageBranch GetLanguageBranch(RequestContext requestContext)
         {
             // Use Epi extension method to get language from route
@@ -49,6 +39,11 @@ namespace Geta.Epi.GeolocationRedirect
                 return FallbackLanguageBranch;
             }
 
+            return GetLanguageBranchByIpAddress(requestContext);
+        }
+
+        public LanguageBranch GetLanguageBranchByIpAddress(RequestContext requestContext)
+        {
             var ipAddress = GetRequestIpAddress(requestContext.HttpContext.Request);
             if (ipAddress.Equals(IPAddress.None))
             {

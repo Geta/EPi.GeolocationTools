@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epi.GeolocationRedirect", "src\Epi.GeolocationRedirect\Epi.GeolocationRedirect.csproj", "{D9818A10-A61E-4F01-919B-A6B4B3A6F817}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geta.Epi.GeolocationRedirect", "src\Geta.Epi.GeolocationRedirect\Geta.Epi.GeolocationRedirect.csproj", "{D9818A10-A61E-4F01-919B-A6B4B3A6F817}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
