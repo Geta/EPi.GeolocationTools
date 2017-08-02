@@ -3,26 +3,29 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
-using System.Web.Mvc;
 using System.Web.Routing;
 using EPiServer.DataAbstraction;
 using EPiServer.Globalization;
 using EPiServer.Personalization;
+using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
 
-namespace Geta.Epi.GeolocationRedirect
+namespace Geta.Epi.GeolocationRedirect.Services
 {
+    [ServiceConfiguration(ServiceType = typeof(IGeolocationService))]
     public class GeolocationService : IGeolocationService
     {
         private readonly ILanguageBranchRepository _languageBranchRepository;
 
-        public LanguageBranch FallbackLanguageBranch
+        public LanguageBranch GetFallbackLanguageBranch()
         {
-            get
-            {
-                return _languageBranchRepository.ListEnabled().FirstOrDefault(l => l.LanguageID.Equals(ContentLanguage.PreferredCulture.Name)) ??
-                       _languageBranchRepository.LoadFirstEnabledBranch();
-            }
+            return GetFallbackLanguageBranch(ContentLanguage.PreferredCulture);
+        }
+
+        public LanguageBranch GetFallbackLanguageBranch(CultureInfo cultureInfo)
+        {
+            return _languageBranchRepository.ListEnabled().FirstOrDefault(l => l.LanguageID.Equals(cultureInfo.Name)) ??
+                   _languageBranchRepository.LoadFirstEnabledBranch();
         }
 
         public GeolocationService(ILanguageBranchRepository languageBranchRepository)
@@ -36,7 +39,7 @@ namespace Geta.Epi.GeolocationRedirect
             var routeLanguage = requestContext.GetLanguage();
             if (!string.IsNullOrWhiteSpace(routeLanguage))
             {
-                return FallbackLanguageBranch;
+                return GetFallbackLanguageBranch();
             }
 
             return GetLanguageBranchByIpAddress(requestContext);
@@ -47,7 +50,7 @@ namespace Geta.Epi.GeolocationRedirect
             var ipAddress = GetRequestIpAddress(requestContext.HttpContext.Request);
             if (ipAddress.Equals(IPAddress.None))
             {
-                return FallbackLanguageBranch;
+                return GetFallbackLanguageBranch();
             }
             var requestLanguage = GetLanguageBranchByIpAddress(ipAddress);
 
@@ -62,7 +65,7 @@ namespace Geta.Epi.GeolocationRedirect
 
         public LanguageBranch GetLanguageBranchByIpAddress(IPAddress ipAddress, IEnumerable<LanguageBranch> languageBranches)
         {
-            var location = GetLocationFromIpAddress(ipAddress);
+            var location = GetLocation(ipAddress);
             var requestLanguage = GetLanguageBranchByLocation(location, languageBranches);
             return requestLanguage;
         }
@@ -77,7 +80,7 @@ namespace Geta.Epi.GeolocationRedirect
         {
             if (location == null || languageBranches == null)
             {
-                return FallbackLanguageBranch;
+                return GetFallbackLanguageBranch();
             }
 
             var allLanguagesForCountry =
@@ -95,10 +98,20 @@ namespace Geta.Epi.GeolocationRedirect
                 }
             }
 
-            return FallbackLanguageBranch;
+            return GetFallbackLanguageBranch();
         }
 
-        public IGeolocationResult GetLocationFromIpAddress(IPAddress ipAddress)
+        public IGeolocationResult GetLocation(HttpRequestBase requestContext)
+        {
+            return GetLocation(requestContext.RequestContext);
+        }
+
+        public IGeolocationResult GetLocation(RequestContext requestContext)
+        {
+            return GetLocation(GetRequestIpAddress(requestContext.HttpContext.Request));
+        }
+
+        public IGeolocationResult GetLocation(IPAddress ipAddress)
         {
             try
             {

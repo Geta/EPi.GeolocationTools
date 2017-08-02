@@ -1,24 +1,17 @@
-using System.Collections.Generic;
 using System.Net;
 using System.Web;
+using System.Web.Routing;
 using EPiServer.DataAbstraction;
 using EPiServer.Personalization;
-using System.Web.Mvc;
-using System.Web.Routing;
 
-namespace Geta.Epi.GeolocationRedirect
+namespace Geta.Epi.GeolocationRedirect.Services
 {
     public interface IGeolocationService
     {
-        LanguageBranch FallbackLanguageBranch { get; }
         LanguageBranch GetLanguageBranch(RequestContext requestContext);
-        LanguageBranch GetLanguageBranchByIpAddress(RequestContext requestContext);
-        LanguageBranch GetLanguageBranchByIpAddress(IPAddress ipAddress);
-        LanguageBranch GetLanguageBranchByIpAddress(IPAddress ipAddress, IEnumerable<LanguageBranch> languageBranches);
-        LanguageBranch GetLanguageBranchByLocation(IGeolocationResult location);
-        LanguageBranch GetLanguageBranchByLocation(IGeolocationResult location, IEnumerable<LanguageBranch> languageBranches);
-        IGeolocationResult GetLocationFromIpAddress(IPAddress ipAddress);
+        IGeolocationResult GetLocation(HttpRequestBase request);
+        IGeolocationResult GetLocation(RequestContext requestContext);
+        IGeolocationResult GetLocation(IPAddress ipAddress);
         IPAddress GetRequestIpAddress(HttpRequestBase request);
-        
     }
 }

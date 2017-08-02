@@ -1,7 +1,8 @@
 ﻿using System.Web.Mvc;
 using EPiServer.ServiceLocation;
+using Geta.Epi.GeolocationRedirect.Services;
 
-namespace Geta.Epi.GeolocationRedirect
+namespace Geta.Epi.GeolocationRedirect.Attributes
 {
     public class RedirectBasedOnGeolocationAttribute : ActionFilterAttribute
     {
