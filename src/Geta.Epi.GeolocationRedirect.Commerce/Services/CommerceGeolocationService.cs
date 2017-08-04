@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Web;
 using EPiServer.DataAbstraction;
 using EPiServer.Personalization;
@@ -30,12 +31,19 @@ namespace Geta.Epi.GeolocationRedirect.Commerce.Services
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns>Market and language tuple, can be null</returns>
-        public (IMarket market, CultureInfo uiLanguage) GetMarket(HttpRequestBase request)
+        public (IGeolocationResult location, IMarket market, CultureInfo uiLanguage) GetMarket(HttpRequestBase request)
         {
             var location = _geolocationService.GetLocation(request);
-            return location != null ? GetMarket(request, location) : (null, null);
+            if (location != null)
+            {
+                var (market, language) = GetMarket(request, location);
+                return (location, market, language);
+            }
+            else
+            {
+                return (null, null, null);
+            }
         }
-
 
         /// <summary>
         /// Gets the language based on the browser UserLanguages and the given market.
@@ -45,9 +53,7 @@ namespace Geta.Epi.GeolocationRedirect.Commerce.Services
         /// <returns></returns>
         public CultureInfo GetLanguage(HttpRequestBase request, IMarket market)
         {
-            var language =
-                (request.UserLanguages ?? Enumerable.Empty<string>())
-                .Select(CleanupUserLanguage)
+            var language = BrowserLanguageHelper.GetBrowserLanguages(request)
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .Select(x => market.Languages.FirstOrDefault(l => l.Name.Equals(x)))
                 .FirstOrDefault(x => x != null);
@@ -78,11 +84,6 @@ namespace Geta.Epi.GeolocationRedirect.Commerce.Services
             var language = GetLanguage(request, marketWithCountry);
 
             return (marketWithCountry, language ?? marketWithCountry.DefaultLanguage);
-        }
-
-        private string CleanupUserLanguage(string requestUserLanguage)
-        {
-            return requestUserLanguage?.Split(';').FirstOrDefault()?.Trim() ?? string.Empty;
         }
     }
 }

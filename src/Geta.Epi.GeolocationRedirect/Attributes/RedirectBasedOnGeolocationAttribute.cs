@@ -9,7 +9,7 @@ namespace Geta.Epi.GeolocationRedirect.Attributes
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var geolocationService = ServiceLocator.Current.GetInstance<IGeolocationService>();
-            var languageBranch = geolocationService.GetLanguageBranch(filterContext.RequestContext);
+            var languageBranch = geolocationService.GetLanguage(filterContext.RequestContext.HttpContext.Request);
             filterContext.Result = new RedirectResult($"/{languageBranch.LanguageID}");
         }
     }

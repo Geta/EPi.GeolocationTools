@@ -12,8 +12,8 @@ namespace Geta.Epi.GeolocationRedirect.Commerce.Services
         /// Defaults to market default language
         /// </summary>
         /// <param name="request">The request.</param>
-        /// <returns>Market and language tuple, can be null</returns>
-        (IMarket market, CultureInfo uiLanguage) GetMarket(HttpRequestBase request);
+        /// <returns>Location, market and language tuple, can be null</returns>
+        (IGeolocationResult location, IMarket market, CultureInfo uiLanguage) GetMarket(HttpRequestBase request);
 
         /// <summary>
         /// Gets the language based on the browser UserLanguages and the given market.

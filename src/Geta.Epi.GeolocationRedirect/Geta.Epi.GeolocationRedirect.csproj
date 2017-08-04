@@ -163,10 +163,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrowserLanguageHelper.cs" />
     <Compile Include="Services\IGeolocationService.cs" />
     <Compile Include="Services\GeolocationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Attributes\RedirectBasedOnGeolocationAttribute.cs" />
+    <Compile Include="IPAddressHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
