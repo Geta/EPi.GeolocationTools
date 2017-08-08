@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geta.EPi.GeolocationTools", "src\Geta.Epi.GeolocationTools\Geta.EPi.GeolocationTools.csproj", "{D9818A10-A61E-4F01-919B-A6B4B3A6F817}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geta.EPi.GeolocationTools.Commerce", "src\Geta.Epi.GeolocationTools.Commerce\Geta.EPi.GeolocationTools.Commerce.csproj", "{4376E95B-BC3E-4562-AEB9-CC72CEA04203}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D9818A10-A61E-4F01-919B-A6B4B3A6F817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9818A10-A61E-4F01-919B-A6B4B3A6F817}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9818A10-A61E-4F01-919B-A6B4B3A6F817}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9818A10-A61E-4F01-919B-A6B4B3A6F817}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4376E95B-BC3E-4562-AEB9-CC72CEA04203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4376E95B-BC3E-4562-AEB9-CC72CEA04203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4376E95B-BC3E-4562-AEB9-CC72CEA04203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4376E95B-BC3E-4562-AEB9-CC72CEA04203}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
