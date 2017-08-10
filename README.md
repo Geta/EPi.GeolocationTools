@@ -3,7 +3,8 @@
 ## What is Geta.EPi.GeolocationTools?
 This library can be used to retrieve the languagebranch which matches the given request best. It provides methods to retrieve a preferred languagebranch by a users' geolocation, browser language preference or both.
 The commerce library can be used to find the right market and corresponding language based on the same parameters.
-
+Useful to prompt the user that a different language might suit him/her better.
+Useful for setting the right market for a user or for suggesting a specific market and language.
 ## Features
 * Get languagebranch by geolocation, preferred browser languages or both
 * [Commerce] Get market by geolocation and preferred browser languages
@@ -13,6 +14,9 @@ The commerce library can be used to find the right market and corresponding lang
 * ``install-package Geta.EPi.GeolocationTools``
 * ``install-package Geta.EPi.GeolocationTools.Commerce``
 
+## Details
+
+### Local development
 For local development add a cookie to override the ip adress to an ip you want to test.
 Either in code:
 ```csharp
@@ -36,8 +40,7 @@ var (market, language, geolocation) = _commerceGeolocationService.GetMarket(Requ
 Or add a cookie "geolocation_ip_override" in your browser dev tools.
 ![Dev tools cookie](/docs/images/cookie-dev-tools.png)
 
-## Details
-Code example for Geta.EPi.GeolocationTools
+### Code example for Geta.EPi.GeolocationTools
 ```csharp
 public class LanguageBranchExample : Controller
 {
@@ -59,7 +62,18 @@ public class LanguageBranchExample : Controller
     }
 }
 ```
-Code example for Geta.EPi.GeolocationTools.Commerce
+### Code example for Geta.EPi.GeolocationTools.Commerce
+Register ICurrentMarket implementation
+```csharp
+ public class StructureMapRegistry : Registry
+{
+    public StructureMapRegistry()
+    {
+        For<ICurrentMarket>().Use<CurrentMarketFromGeolocation>()}
+    }
+}
+```
+Get market based on geolocation and browser preferences
 ```csharp
 public class MarketExample : Controller
 {
