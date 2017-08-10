@@ -1,10 +1,12 @@
 # Geta Episerver geolocation tools
 
 ## What is Geta.EPi.GeolocationTools?
-This library can be used to retrieve the languagebranch which matches the given request best. It provides methods to retrieve a preferred languagebranch by a users' geolocation, browser language preference or both.
+This library can be used to retrieve the languagebranch which matches the given request best. It provides methods to retrieve a preferred languagebranch by a users' geolocation, [browser language preference](https://www.w3.org/International/questions/qa-lang-priorities)  or both.
 The commerce library can be used to find the right market and corresponding language based on the same parameters.
 Useful to prompt the user that a different language might suit him/her better.
 Useful for setting the right market for a user or for suggesting a specific market and language.
+Builds on top of Episervers' built in support for [geolocation](https://world.episerver.com/documentation/developer-guides/CMS/personalization/Configuring-personalization/)
+
 ## Features
 * Get languagebranch by geolocation, preferred browser languages or both
 * [Commerce] Get market by geolocation and preferred browser languages
