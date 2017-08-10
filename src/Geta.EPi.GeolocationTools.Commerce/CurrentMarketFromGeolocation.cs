@@ -10,7 +10,7 @@ namespace Geta.EPi.GeolocationTools.Commerce
 {
     public class CurrentMarketFromGeolocation : ICurrentMarket
     {
-        private const string MarketCookie = "MarketId";
+        private const string MarketCookie = "MarketFromGeolocation";
         protected static MarketId DefaultMarketId; // TODO check if it is enabled?
         protected readonly IMarketService MarketService;
         protected readonly ICommerceGeolocationService CommerceGeolocationService;

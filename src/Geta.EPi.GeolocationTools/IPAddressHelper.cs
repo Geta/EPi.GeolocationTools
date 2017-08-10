@@ -11,8 +11,13 @@ namespace Geta.EPi.GeolocationTools
     {
         public static IPAddress GetRequestIpAddress(HttpRequestBase request)
         {
-            var address = request.ServerVariables["True-Client-IP"];
+            var test = GetDevIPAddress(request);
+            if (!string.IsNullOrEmpty(test))
+            {
+                return ParseIpAddress(test);
+            }
 
+            var address = request.ServerVariables["True-Client-IP"];
             if (string.IsNullOrWhiteSpace(address))
             {
                 var forwardedForAddresses = request.ServerVariables["HTTP_X_FORWARDED_FOR"];
@@ -42,6 +47,11 @@ namespace Geta.EPi.GeolocationTools
             }
 
             return ipAddress;
+        }
+
+        private static string GetDevIPAddress(HttpRequestBase request)
+        {
+            return request?.Cookies[Constants.IPAddressOverride]?.Value;
         }
     }
 }

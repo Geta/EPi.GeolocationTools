@@ -50,8 +50,7 @@ namespace Geta.EPi.GeolocationTools.Commerce.Services
         /// <returns></returns>
         public CultureInfo GetLanguage(HttpRequestBase request, IMarket market)
         {
-            var language = BrowserLanguageHelper.GetBrowserLanguages(request)
-                .Where(x => !string.IsNullOrWhiteSpace(x))
+            var language = _geolocationService.GetBrowserLanguages(request)
                 .Select(x => market.Languages.FirstOrDefault(l => l.Name.Equals(x)))
                 .FirstOrDefault(x => x != null);
             return language;

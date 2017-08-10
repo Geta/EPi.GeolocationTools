@@ -248,7 +248,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Geta.Epi.GeolocationRedirect\Geta.EPi.GeolocationTools.csproj">
+    <ProjectReference Include="..\Geta.Epi.GeolocationTools\Geta.EPi.GeolocationTools.csproj">
       <Project>{d9818a10-a61e-4f01-919b-a6b4b3a6f817}</Project>
       <Name>Geta.EPi.GeolocationTools</Name>
     </ProjectReference>

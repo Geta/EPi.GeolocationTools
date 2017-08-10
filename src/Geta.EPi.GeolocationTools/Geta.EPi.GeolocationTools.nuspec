@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>Geta.Epi.GeolocationRedirect.Commerce</id>
+    <id>Geta.Epi.GeolocationTools</id>
     <version>$version$</version>
     <authors>Geta</authors>
     <owners>Geta</owners>
-    <projectUrl>https://github.com/Geta/EPi.GeolocationRedirect</projectUrl>
+    <projectUrl>https://github.com/Geta/EPi.GeolocationTools</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Geta EPiServer geolocation redirect for commerce</description>
-    <tags>Geta EPiServer commerce geolocation redirect</tags>
+    <description>Geta EPiServer geolocation tools</description>
+    <tags>Geta EPiServer geolocation tools</tags>
 	  <dependencies></dependencies>
   </metadata>
   <files>
