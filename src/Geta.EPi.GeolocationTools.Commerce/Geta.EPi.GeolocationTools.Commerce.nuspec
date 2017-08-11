@@ -9,7 +9,11 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Geta EPiServer geolocation tools for commerce</description>
     <tags>Geta EPiServer commerce geolocation tools</tags>
-	  <dependencies></dependencies>
+	  <dependencies>
+      <dependency id="EPiServer.CMS.Core" version="[10, 11)" />
+      <dependency id="EPiServer.Commerce.Core" version="[10, 11)" />
+      <dependency id="EPiServer.Framework" version="[10, 11)" />
+    </dependencies>
   </metadata>
   <files>
     <file src="readme.txt" target="readme.txt" />

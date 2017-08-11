@@ -103,3 +103,4 @@ public class MarketExample : Controller
 ```
 
 ### Changelog
+* 11 Aug 2017 - v0.1 - Initial release
