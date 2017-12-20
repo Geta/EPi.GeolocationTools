@@ -32,6 +32,11 @@ namespace Geta.EPi.GeolocationTools.Services
         /// </summary>
         public LanguageBranch GetLanguage(HttpRequestBase requestBase)
         {
+            if (requestBase == null)
+            {
+                throw new ArgumentNullException(nameof(requestBase));
+            }
+
             var location = GetLocation(requestBase);
             var userBrowserLanguages = BrowserLanguageHelper.GetBrowserLanguages(requestBase).ToList();
             if (location == null)
@@ -57,6 +62,11 @@ namespace Geta.EPi.GeolocationTools.Services
         /// </summary>
         public LanguageBranch GetLanguageByCountry(IGeolocationResult location)
         {
+            if (location == null)
+            {
+                throw new ArgumentNullException(nameof(location));
+            }
+
             return _enabledLanguageBranches
                 .Where(IsLanguageBranchForCountry(location))
                 .FirstOrDefault();
@@ -69,6 +79,11 @@ namespace Geta.EPi.GeolocationTools.Services
         /// </summary>
         public LanguageBranch GetLanguageByBrowserPreferences(IEnumerable<string> userBrowserLanguages)
         {
+            if (userBrowserLanguages == null)
+            {
+                throw new ArgumentNullException(nameof(userBrowserLanguages));
+            }
+
             return _enabledLanguageBranches
                 .Where(IsLanguageBranchForBrowserLanguage(userBrowserLanguages))
                 .FirstOrDefault();
@@ -76,6 +91,16 @@ namespace Geta.EPi.GeolocationTools.Services
 
         public LanguageBranch GetLanguageByCountryAndBrowserLanguage(IGeolocationResult location, IEnumerable<string> userBrowserLanguages)
         {
+            if (location == null)
+            {
+                throw new ArgumentNullException(nameof(location));
+            }
+
+            if (userBrowserLanguages == null)
+            {
+                throw new ArgumentNullException(nameof(userBrowserLanguages));
+            }
+
             return _enabledLanguageBranches
                 .Where(IsLanguageBranchForCountry(location))
                 .Where(IsLanguageBranchForBrowserLanguage(userBrowserLanguages))
@@ -93,6 +118,11 @@ namespace Geta.EPi.GeolocationTools.Services
 
         public IGeolocationResult GetLocation(RequestContext requestContext)
         {
+            if (requestContext == null)
+            {
+                throw new ArgumentNullException(nameof(requestContext));
+            }
+
             return GetLocation(IPAddressHelper.GetRequestIpAddress(requestContext.HttpContext.Request));
         }
 
@@ -116,6 +146,11 @@ namespace Geta.EPi.GeolocationTools.Services
         /// </summary>
         public IEnumerable<string> GetBrowserLanguages(HttpRequestBase request)
         {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
             return BrowserLanguageHelper.GetBrowserLanguages(request);
         }
 

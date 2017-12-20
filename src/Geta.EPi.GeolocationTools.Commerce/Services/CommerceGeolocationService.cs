@@ -30,6 +30,11 @@ namespace Geta.EPi.GeolocationTools.Commerce.Services
         /// <returns>Market and language and location tuple, which can be null</returns>
         public (IMarket market, CultureInfo language, IGeolocationResult location) GetMarket(HttpRequestBase request)
         {
+            if (request == null)
+            {
+                throw new System.ArgumentNullException(nameof(request));
+            }
+
             var location = _geolocationService.GetLocation(request);
             if (location != null)
             {
@@ -50,6 +55,16 @@ namespace Geta.EPi.GeolocationTools.Commerce.Services
         /// <returns></returns>
         public CultureInfo GetLanguage(HttpRequestBase request, IMarket market)
         {
+            if (request == null)
+            {
+                throw new System.ArgumentNullException(nameof(request));
+            }
+
+            if (market == null)
+            {
+                throw new System.ArgumentNullException(nameof(market));
+            }
+
             var language = _geolocationService.GetBrowserLanguages(request)
                 .Select(x => market.Languages.FirstOrDefault(l => l.Name.Equals(x)))
                 .FirstOrDefault(x => x != null);
@@ -63,6 +78,11 @@ namespace Geta.EPi.GeolocationTools.Commerce.Services
         /// <returns></returns>
         public IMarket GetMarket(IGeolocationResult geolocationResult)
         {
+            if (geolocationResult == null)
+            {
+                throw new System.ArgumentNullException(nameof(geolocationResult));
+            }
+
             // Get ISO3166 country as commerce is using alpha3 codes and we only have an alpha2 code
             var country = Bia.Countries.Iso3166.Countries.GetCountryByAlpha2(geolocationResult.CountryCode);
 
@@ -76,6 +96,10 @@ namespace Geta.EPi.GeolocationTools.Commerce.Services
         private (IMarket market, CultureInfo uiLanguage) GetMarket(HttpRequestBase request, IGeolocationResult geolocationResult)
         {
             var marketWithCountry = GetMarket(geolocationResult);
+            if (marketWithCountry == null)
+            {
+                return (null, null);
+            }
 
             var language = GetLanguage(request, marketWithCountry);
 

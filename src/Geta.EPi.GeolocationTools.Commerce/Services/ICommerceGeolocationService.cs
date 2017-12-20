@@ -9,7 +9,7 @@ namespace Geta.EPi.GeolocationTools.Commerce.Services
     {
         /// <summary>
         /// Gets the market based on the IP address location and browser UserLanguages.
-        /// Defaults to market default language
+        /// Defaults to market default language. Market, language and location can be null.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns>Market, language and location can be null</returns>
