@@ -1,6 +1,6 @@
 # Geta Episerver geolocation tools
 
-## What is Geta.EPi.GeolocationTools?
+## Description
 This library can be used to retrieve the languagebranch which matches the given request best. It provides methods to retrieve a preferred languagebranch by a users' geolocation, [browser language preference](https://www.w3.org/International/questions/qa-lang-priorities)  or both.
 The commerce library can be used to find the right market and corresponding language based on the same parameters.
 Useful to prompt the user that a different language might suit him/her better.
@@ -28,7 +28,7 @@ Request.Cookies.Add(new HttpCookie(Geta.EPi.GeolocationTools.Constants.IPAddress
 	Value = "59.107.128.65", // Chinese ip address
 	Expires = DateTime.Now.AddYears(1)
 });
-var (market, language, geolocation) = _commerceGeolocationService.GetMarket(Request);
+var result = _commerceGeolocationService.GetMarket(Request);
 
 // This will be there upon the next request
 HttpContext.Response.SetCookie(new HttpCookie(Geta.EPi.GeolocationTools.Constants.IPAddressOverride)
@@ -37,7 +37,7 @@ HttpContext.Response.SetCookie(new HttpCookie(Geta.EPi.GeolocationTools.Constant
     Expires = DateTime.Now.AddYears(1)
 });
 // Chinese market (if available)
-var (market, language, geolocation) = _commerceGeolocationService.GetMarket(Request);
+var result = _commerceGeolocationService.GetMarket(Request);
 ```
 Or add a cookie "geolocation_ip_override" in your browser dev tools.
 ![Dev tools cookie](/docs/images/cookie-dev-tools.png)
@@ -92,8 +92,8 @@ public class MarketExample : Controller
 
     public void Index()
     {
-        // Get current market based on geolocation and browser preferences, can be null
-        var (market, language, location) = _commerceGeolocationService.GetMarket(Request);
+        // Get current market based on geolocation and browser preferences, market, language, location can be null
+        var result = _commerceGeolocationService.GetMarket(Request);
         
         // This one will be cached by storing the result in a cookie
         // Will fall back to first enabled market or the default market
@@ -102,5 +102,12 @@ public class MarketExample : Controller
 }
 ```
 
-### Changelog
-* 11 Aug 2017 - v0.1 - Initial release
+## Package maintainer
+https://github.com/brianweet
+
+## Changelog
+* 20 Dec 2017 - 0.2
+  * Remove tuple from public api
+  * Add null checks
+* 11 Aug 2017 - 0.1 
+  * Initial release
