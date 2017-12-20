@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using EPiServer.Personalization;
 using EPiServer.ServiceLocation;
+using Geta.EPi.GeolocationTools.Commerce.Models;
 using Geta.EPi.GeolocationTools.Services;
 using Mediachase.Commerce;
 using Mediachase.Commerce.Markets;
@@ -28,7 +29,7 @@ namespace Geta.EPi.GeolocationTools.Commerce.Services
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns>Market and language and location tuple, which can be null</returns>
-        public (IMarket market, CultureInfo language, IGeolocationResult location) GetMarket(HttpRequestBase request)
+        public ICommerceGeolocationResult GetMarket(HttpRequestBase request)
         {
             if (request == null)
             {
@@ -39,11 +40,16 @@ namespace Geta.EPi.GeolocationTools.Commerce.Services
             if (location != null)
             {
                 var (market, language) = GetMarket(request, location);
-                return (market, language, location);
+                return new CommerceGeolocationResult
+                {
+                    Market = market,
+                    Language = language,
+                    Location = location
+                };
             }
             else
             {
-                return (null, null, null);
+                return new CommerceGeolocationResult();
             }
         }
 

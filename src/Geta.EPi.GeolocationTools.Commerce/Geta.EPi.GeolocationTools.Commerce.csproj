@@ -231,6 +231,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CurrentMarketFromGeolocation.cs" />
+    <Compile Include="Models\CommerceGeolocationResult.cs" />
+    <Compile Include="Models\ICommerceGeolocationResult.cs" />
     <Compile Include="Services\ICommerceGeolocationService.cs" />
     <Compile Include="Services\CommerceGeolocationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

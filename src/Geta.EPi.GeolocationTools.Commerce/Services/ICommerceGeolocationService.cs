@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Web;
 using EPiServer.Personalization;
+using Geta.EPi.GeolocationTools.Commerce.Models;
 using Mediachase.Commerce;
 
 namespace Geta.EPi.GeolocationTools.Commerce.Services
@@ -13,7 +14,7 @@ namespace Geta.EPi.GeolocationTools.Commerce.Services
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns>Market, language and location can be null</returns>
-        (IMarket market, CultureInfo language, IGeolocationResult location) GetMarket(HttpRequestBase request);
+        ICommerceGeolocationResult GetMarket(HttpRequestBase request);
 
         /// <summary>
         /// Gets the language based on the browser UserLanguages and the given market.
