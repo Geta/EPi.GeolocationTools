@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web;
 using EPiServer.Business.Commerce;
 using Geta.EPi.GeolocationTools.Commerce.Services;
@@ -31,7 +30,8 @@ namespace Geta.EPi.GeolocationTools.Commerce
             {
                 // TODO inject HttpContext?
                 var httpContextBase = new HttpRequestWrapper(HttpContext.Current.Request);
-                var (market, _, _) = CommerceGeolocationService.GetMarket(httpContextBase);
+                var result = CommerceGeolocationService.GetMarket(httpContextBase);
+                var market = result.Market;
                 marketId = market?.MarketId ?? DefaultMarketId;
                 CookieHelper.Set(MarketCookie, marketId.Value);
             }
