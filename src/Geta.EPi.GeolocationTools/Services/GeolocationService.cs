@@ -6,9 +6,9 @@ using System.Net;
 using System.Web;
 using System.Web.Routing;
 using EPiServer.DataAbstraction;
-using EPiServer.Globalization;
 using EPiServer.Personalization;
 using EPiServer.ServiceLocation;
+using EPiServer.Globalization;
 
 namespace Geta.EPi.GeolocationTools.Services
 {
@@ -17,11 +17,13 @@ namespace Geta.EPi.GeolocationTools.Services
     {
         private readonly ILanguageBranchRepository _languageBranchRepository;
         private readonly List<LanguageBranch> _enabledLanguageBranches;
+        private readonly IGeolocationProvider _geolocationProvider;
 
-        public GeolocationService(ILanguageBranchRepository languageBranchRepository)
+        public GeolocationService(ILanguageBranchRepository languageBranchRepository, IGeolocationProvider geolocationProvider)
         {
             _languageBranchRepository = languageBranchRepository;
             _enabledLanguageBranches = _languageBranchRepository.ListEnabled().OrderBy(x => x.SortIndex).ToList();
+            _geolocationProvider = geolocationProvider;
         }
 
         /// <summary>
@@ -130,8 +132,7 @@ namespace Geta.EPi.GeolocationTools.Services
         {
             try
             {
-                var provider = Geolocation.Provider;
-                var result = provider.Lookup(ipAddress);
+                var result = _geolocationProvider.Lookup(ipAddress);
                 return result;
             }
             catch
