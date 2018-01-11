@@ -106,6 +106,8 @@ public class MarketExample : Controller
 https://github.com/brianweet
 
 ## Changelog
+* 11 Jan 2018 - 1.0
+  * Added support for Episerver 11
 * 20 Dec 2017 - 0.2
   * Remove tuple from public api
   * Add null checks
