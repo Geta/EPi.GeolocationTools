@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using Bia.Countries.Iso3166;
 using EPiServer.Personalization;
 using EPiServer.ServiceLocation;
 using Geta.EPi.GeolocationTools.Commerce.Models;
@@ -90,7 +91,11 @@ namespace Geta.EPi.GeolocationTools.Commerce.Services
             }
 
             // Get ISO3166 country as commerce is using alpha3 codes and we only have an alpha2 code
-            var country = Bia.Countries.Iso3166.Countries.GetCountryByAlpha2(geolocationResult.CountryCode);
+            var country = Countries.GetCountryByAlpha2(geolocationResult.CountryCode);
+            if (country == null)
+            {
+                return null;
+            }
 
             // Get market with this country enabled
             var marketsWithCountry =

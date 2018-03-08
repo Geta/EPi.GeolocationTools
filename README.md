@@ -106,6 +106,8 @@ public class MarketExample : Controller
 https://github.com/brianweet
 
 ## Changelog
+* 8 Mar 2018 - 1.0.1
+  * Add null check for country not found (Europe is not a country)
 * 11 Jan 2018 - 1.0
   * Added support for Episerver 11
 * 20 Dec 2017 - 0.2
