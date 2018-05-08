@@ -9,9 +9,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Geta EPiServer geolocation tools</description>
     <tags>Geta EPiServer geolocation tools</tags>
-	  <dependencies>
-      <dependency id="EPiServer.CMS.Core" version="[11.0, 12)" />
-    </dependencies>
   </metadata>
   <files>
     <file src="readme.txt" target="readme.txt" />
