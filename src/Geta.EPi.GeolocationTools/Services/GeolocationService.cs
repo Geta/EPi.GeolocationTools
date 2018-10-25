@@ -49,12 +49,8 @@ namespace Geta.EPi.GeolocationTools.Services
             }
 
             return
-                // Search language branches for country and the users' browser preferences
-                GetLanguageByCountryAndBrowserLanguage(location, userBrowserLanguages) ??
-                // Search language branches for the users' browser preferences
-                GetLanguageByBrowserPreferences(userBrowserLanguages) ??
-                // Use fallback/default
-                GetFallbackLanguageBranch();
+                GetLanguageByCountryAndBrowserLanguage(location, userBrowserLanguages)
+                ?? GetFallbackLanguageBranch();
         }
 
         /// <summary>
