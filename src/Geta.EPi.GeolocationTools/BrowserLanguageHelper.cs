@@ -4,7 +4,7 @@ using System.Web;
 
 namespace Geta.EPi.GeolocationTools
 {
-    internal static class BrowserLanguageHelper
+    public static class BrowserLanguageHelper
     {
         /// <summary>
         /// Returns the browser locales from the request.
