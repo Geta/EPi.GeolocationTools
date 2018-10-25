@@ -39,22 +39,13 @@ namespace Geta.EPi.GeolocationTools.Services
                 throw new ArgumentNullException(nameof(requestBase));
             }
 
-            var location = GetLocation(requestBase);
-            var userBrowserLanguages = BrowserLanguageHelper.GetBrowserLanguages(requestBase).ToList();
-            if (location == null)
-            {
-                return _enabledLanguageBranches
-                           .Where(IsLanguageBranchForBrowserLanguage(userBrowserLanguages))
-                           .FirstOrDefault() ?? GetFallbackLanguageBranch();
-            }
-
             return
                 // Search language branches for country and the users' browser preferences
-                GetLanguageByCountryAndBrowserLanguage(location, userBrowserLanguages) ??
+                GetLanguageByCountryAndBrowserLanguage(requestBase)
                 // Search language branches for the users' browser preferences
-                GetLanguageByBrowserPreferences(userBrowserLanguages) ??
+                ?? GetLanguageByBrowserPreferences(requestBase)
                 // Use fallback/default
-                GetFallbackLanguageBranch();
+                ?? GetFallbackLanguageBranch();
         }
 
         /// <summary>
@@ -75,6 +66,17 @@ namespace Geta.EPi.GeolocationTools.Services
         }
 
         /// <summary>
+        /// Gets the language based on the users' location.
+        /// 1. Language branch for the users country
+        /// 2. null
+        /// </summary>
+        public LanguageBranch GetLanguageByCountry(HttpRequestBase requestBase)
+        {
+            var location = GetLocation(requestBase);
+            return location != null ? GetLanguageByCountry(location) : null;
+        }
+
+        /// <summary>
         /// Gets the language based on the users' browser preferences.
         /// 1. Language branch for users' browser preferences
         /// 2. null
@@ -91,6 +93,22 @@ namespace Geta.EPi.GeolocationTools.Services
                 .FirstOrDefault();
         }
 
+        /// <summary>
+        /// Gets the language based on the users' browser preferences.
+        /// 1. Language branch for users' browser preferences
+        /// 2. null
+        /// </summary>
+        public LanguageBranch GetLanguageByBrowserPreferences(HttpRequestBase requestBase)
+        {
+            var browserLanguages = GetBrowserLanguages(requestBase);
+            return GetLanguageByBrowserPreferences(browserLanguages);
+        }
+
+        /// <summary>
+        /// Gets the language based on the users' location AND browser preferences.
+        /// 1. Language branch for users' location AND browser preferences
+        /// 2. null
+        /// </summary>
         public LanguageBranch GetLanguageByCountryAndBrowserLanguage(IGeolocationResult location, IEnumerable<string> userBrowserLanguages)
         {
             if (location == null)
@@ -107,6 +125,18 @@ namespace Geta.EPi.GeolocationTools.Services
                 .Where(IsLanguageBranchForCountry(location))
                 .Where(IsLanguageBranchForBrowserLanguage(userBrowserLanguages))
                 .FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Gets the language based on the users' location AND browser preferences.
+        /// 1. Language branch for users' location AND browser preferences
+        /// 2. null
+        /// </summary>
+        public LanguageBranch GetLanguageByCountryAndBrowserLanguage(HttpRequestBase requestBase)
+        {
+            var location = GetLocation(requestBase);
+            var browserLanguages = GetBrowserLanguages(requestBase);
+            return location != null ? GetLanguageByCountryAndBrowserLanguage(location, browserLanguages) : null;
         }
 
         public IGeolocationResult GetLocation(HttpRequestBase requestContext)
