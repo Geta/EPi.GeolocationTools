@@ -19,7 +19,8 @@ namespace Geta.EPi.GeolocationTools.Services
         private readonly List<LanguageBranch> _enabledLanguageBranches;
         private readonly IGeolocationProvider _geolocationProvider;
 
-        public GeolocationService(ILanguageBranchRepository languageBranchRepository, IGeolocationProvider geolocationProvider)
+        public GeolocationService(ILanguageBranchRepository languageBranchRepository,
+            IGeolocationProvider geolocationProvider)
         {
             _languageBranchRepository = languageBranchRepository;
             _enabledLanguageBranches = _languageBranchRepository.ListEnabled().OrderBy(x => x.SortIndex).ToList();
@@ -34,22 +35,35 @@ namespace Geta.EPi.GeolocationTools.Services
         /// </summary>
         public LanguageBranch GetLanguage(HttpRequestBase requestBase)
         {
+            return GetLanguage(requestBase, useFallback: true);
+        }
+
+        /// <summary>
+        /// Gets the language based on the users' location and their browser preferences, depending on what is available.
+        /// 1. Language branch for both the users' country and their browser preferences
+        /// 2. Language branch for users' browser preferences
+        /// 3. (optional) Fallback language if useFallback == true
+        /// </summary>
+        public LanguageBranch GetLanguage(HttpRequestBase requestBase, bool useFallback)
+        {
             if (requestBase == null)
             {
                 throw new ArgumentNullException(nameof(requestBase));
             }
+
+            var fallback = useFallback ? (Func<LanguageBranch>) GetFallbackLanguageBranch : () => null;
 
             var location = GetLocation(requestBase);
             var userBrowserLanguages = BrowserLanguageHelper.GetBrowserLanguages(requestBase).ToList();
             if (location == null)
             {
                 return GetLanguageByBrowserPreferences(userBrowserLanguages)
-                       ?? GetFallbackLanguageBranch();
+                       ?? fallback();
             }
 
             return
                 GetLanguageByCountryAndBrowserLanguage(location, userBrowserLanguages)
-                ?? GetFallbackLanguageBranch();
+                ?? fallback();
         }
 
         /// <summary>
@@ -86,7 +100,8 @@ namespace Geta.EPi.GeolocationTools.Services
                 .FirstOrDefault();
         }
 
-        public LanguageBranch GetLanguageByCountryAndBrowserLanguage(IGeolocationResult location, IEnumerable<string> userBrowserLanguages)
+        public LanguageBranch GetLanguageByCountryAndBrowserLanguage(IGeolocationResult location,
+            IEnumerable<string> userBrowserLanguages)
         {
             if (location == null)
             {
@@ -110,6 +125,7 @@ namespace Geta.EPi.GeolocationTools.Services
             {
                 return null;
             }
+
             return GetLocation(requestContext.RequestContext);
         }
 
