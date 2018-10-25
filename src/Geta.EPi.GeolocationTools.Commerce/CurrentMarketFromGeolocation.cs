@@ -24,22 +24,30 @@ namespace Geta.EPi.GeolocationTools.Commerce
 
         public virtual IMarket GetCurrentMarket()
         {
+            var marketId = GetMarketId();
+            return GetMarket(marketId);
+        }
+
+        private MarketId GetMarketId()
+        {
             var marketName = CookieHelper.Get(MarketCookie);
-            MarketId marketId;
-            if (string.IsNullOrEmpty(marketName))
+            if (!string.IsNullOrEmpty(marketName))
+            {
+                return new MarketId(marketName);
+            }
+
+            if (HttpContext.Current != null)
             {
                 // TODO inject HttpContext?
                 var httpContextBase = new HttpRequestWrapper(HttpContext.Current.Request);
                 var result = CommerceGeolocationService.GetMarket(httpContextBase);
                 var market = result.Market;
-                marketId = market?.MarketId ?? DefaultMarketId;
+                var marketId = market?.MarketId ?? DefaultMarketId;
                 CookieHelper.Set(MarketCookie, marketId.Value);
+                return marketId;
             }
-            else
-            {
-                marketId = new MarketId(marketName);
-            }
-            return GetMarket(marketId);
+
+            return DefaultMarketId;
         }
 
         public virtual void SetCurrentMarket(MarketId marketId)
