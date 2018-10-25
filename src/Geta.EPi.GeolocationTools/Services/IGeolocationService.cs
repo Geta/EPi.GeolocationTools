@@ -25,6 +25,13 @@ namespace Geta.EPi.GeolocationTools.Services
         LanguageBranch GetLanguageByCountry(IGeolocationResult location);
 
         /// <summary>
+        /// Gets the language based on the users' location.
+        /// 1. Language branch for the users country
+        /// 2. null
+        /// </summary>
+        LanguageBranch GetLanguageByCountry(HttpRequestBase requestBase);
+
+        /// <summary>
         /// Gets the language based on the users' browser preferences.
         /// 1. Language branch for users' browser preferences
         /// 2. null
@@ -32,10 +39,25 @@ namespace Geta.EPi.GeolocationTools.Services
         LanguageBranch GetLanguageByBrowserPreferences(IEnumerable<string> userBrowserLanguages);
 
         /// <summary>
-        /// Gets the language based on the users' location and their browser preferences, depending on what is available.
-        /// 1. Language branch for both the users' country and their browser preferences
+        /// Gets the language based on the users' browser preferences.
+        /// 1. Language branch for users' browser preferences
+        /// 2. null
+        /// </summary>
+        LanguageBranch GetLanguageByBrowserPreferences(HttpRequestBase requestBase);
+
+        /// <summary>
+        /// Gets the language based on the users' location AND browser preferences.
+        /// 1. Language branch for users' location AND browser preferences
+        /// 2. null
         /// </summary>
         LanguageBranch GetLanguageByCountryAndBrowserLanguage(IGeolocationResult location, IEnumerable<string> userBrowserLanguages);
+
+        /// <summary>
+        /// Gets the language based on the users' location AND browser preferences.
+        /// 1. Language branch for users' location AND browser preferences
+        /// 2. null
+        /// </summary>
+        LanguageBranch GetLanguageByCountryAndBrowserLanguage(HttpRequestBase requestBase);
 
         IGeolocationResult GetLocation(HttpRequestBase requestContext);
         IGeolocationResult GetLocation(RequestContext requestContext);
