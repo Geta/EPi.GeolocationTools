@@ -163,7 +163,7 @@ namespace Geta.EPi.GeolocationTools.Services
 
         private Func<LanguageBranch, bool> IsLanguageBranchForBrowserLanguage(IEnumerable<string> location)
         {
-            return x => location.Any(l => l.Equals(x.Name, StringComparison.InvariantCultureIgnoreCase));
+            return x => location.Any(l => l.Equals(x.Culture.Name, StringComparison.InvariantCultureIgnoreCase));
         }
 
         private LanguageBranch GetFallbackLanguageBranch()
