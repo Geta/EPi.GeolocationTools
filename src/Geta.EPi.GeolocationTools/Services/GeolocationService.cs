@@ -43,9 +43,8 @@ namespace Geta.EPi.GeolocationTools.Services
             var userBrowserLanguages = BrowserLanguageHelper.GetBrowserLanguages(requestBase).ToList();
             if (location == null)
             {
-                return _enabledLanguageBranches
-                           .Where(IsLanguageBranchForBrowserLanguage(userBrowserLanguages))
-                           .FirstOrDefault() ?? GetFallbackLanguageBranch();
+                return GetLanguageByBrowserPreferences(userBrowserLanguages)
+                       ?? GetFallbackLanguageBranch();
             }
 
             return
