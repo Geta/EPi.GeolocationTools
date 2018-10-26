@@ -42,6 +42,18 @@ var result = _commerceGeolocationService.GetMarket(Request);
 Or add a cookie "geolocation_ip_override" in your browser dev tools.
 ![Dev tools cookie](/docs/images/cookie-dev-tools.png)
 
+#### Test IPs
+
+| Country code |        IP       |
+|:------------:|:---------------:|
+|      DE      |   85.88.2.224   |
+|      CH      |  178.255.153.2  |
+|      AT      |  185.180.12.65  |
+|      SE      |   82.99.17.96   |
+|      US      |  64.17.254.216  |
+|      FI      | 146.161.232.141 |
+|      NO      |   169.51.80.85  |
+
 ### Code example for Geta.EPi.GeolocationTools
 ```csharp
 public class LanguageBranchExample : Controller
