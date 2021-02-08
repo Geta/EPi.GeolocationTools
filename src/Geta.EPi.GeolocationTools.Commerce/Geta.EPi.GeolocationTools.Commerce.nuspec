@@ -9,6 +9,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Geta EPiServer geolocation tools for commerce</description>
     <tags>Geta EPiServer commerce geolocation tools</tags>
+    <repository type="git" url="URL" branch="BRANCH_NAME" commit="COMMIT" />
   </metadata>
   <files>
     <file src="readme.txt" target="readme.txt" />
