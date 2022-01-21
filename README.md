@@ -1,9 +1,11 @@
 # Geta Episerver geolocation tools
 
-* Master<br>
 ![](http://tc.geta.no/app/rest/builds/buildType:(id:GetaPackages_EPiGeolocationTools_00ci),branch:master/statusIcon)
 
 ## Description
+
+For ASP.NET 5+ and Episerver/Optimizely 12+ see: https://github.com/Geta/geta-optimizely-geolocationtools
+
 This library can be used to retrieve the languagebranch which matches the given request best. It provides methods to retrieve a preferred languagebranch by a users' geolocation, [browser language preference](https://www.w3.org/International/questions/qa-lang-priorities)  or both.
 The commerce library can be used to find the right market and corresponding language based on the same parameters.
 Useful to prompt the user that a different language might suit him/her better.
