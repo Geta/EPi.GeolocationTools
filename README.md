@@ -1,6 +1,6 @@
 # Geta Episerver geolocation tools
 
-![](http://tc.geta.no/app/rest/builds/buildType:(id:GetaPackages_EPiGeolocationTools_00ci),branch:master/statusIcon)
+![](http://teamcity.getatools.ai/app/rest/builds/buildType:(id:GetaPackages_EPiGeolocationTools_00ci),branch:master/statusIcon)
 
 ## Description
 
