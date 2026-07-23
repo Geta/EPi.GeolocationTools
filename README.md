@@ -120,5 +120,5 @@ public class MarketExample : Controller
 ```
 
 ## Package maintainer
-https://github.com/brianweet
+https://github.com/chipev
 
